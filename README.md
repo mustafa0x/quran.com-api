@@ -1,7 +1,5 @@
 # Quran.com API [Join Quran.com community](https://discord.com/invite/FxRWSBfWxn)
 
-[![Code Climate](https://codeclimate.com/github/quran/quran.com-api.png)](https://codeclimate.com/github/quran/quran.com-api)
-
 #### Requirements
 - Rails 5.0.1
 - Elasticsearch 5.0.1
@@ -34,7 +32,7 @@ PostgreSQL: clusterdb createdb createlang createuser dropdb droplang dropuser ec
 See: http://postgresapp.com/documentation/cli-tools.html
 
 ### Database
-It's private, we will not share complete dump. If you need mini version for contributing to quran.com, please join our slack channel and ask one of project's collaborator for access.
+To avoid abuse, the data is private. If you need a mini version for contributing to quran.com, please join our Discord channel and ask one of project's collaborator for access.
 
 ### Usage
 ```
