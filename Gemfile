@@ -21,7 +21,7 @@ gem 'graphql-schema_comparator'
 
 
 #gem 'cld3', '= 3.4.4'
-gem 'cld3', '= 3.4.3'
+gem 'cld3', '= 3.7.0'
 
 # Elasticsearch
 gem 'elastic-transport'

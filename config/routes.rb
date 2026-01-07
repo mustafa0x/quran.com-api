@@ -11,6 +11,9 @@ Rails.application.routes.draw do
   # mount GraphQL::Playground::Engine, at: "/graphql-playground", graphql_path: "/graphql"
   post '/graphql', to: 'graphql#execute'
   post "/internal/sync_api_client", to: "api_clients#sync"
+  namespace :internal do
+    post 'topics/sync', to: 'topics#sync'
+  end
 
   # Simple health check endpoint (non-cached)
   get '/health', to: 'health#show'
