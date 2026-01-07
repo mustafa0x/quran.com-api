@@ -1,0 +1,33 @@
+x-defaults: &defaults
+  restart: unless-stopped
+  logging:
+    driver: local
+    options:
+      max-size: "100m"
+  networks:
+    - backend
+
+services:
+  db:
+    <<: *defaults
+    image: postgres:14-alpine
+    ports:
+      - "127.0.0.1:${POSTGRES_PORT:-5432}:5432"
+    environment:
+      POSTGRES_DB: ${POSTGRES_DB:-quran}
+      POSTGRES_USER: ${POSTGRES_USER:-postgres}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-postgres}
+    volumes:
+      - pg_data:/var/lib/postgresql/data
+    healthcheck:
+      test: [ 'CMD-SHELL', 'pg_isready -U postgres' ]
+      interval: 10s
+      timeout: 5s
+      retries: 6
+
+networks:
+  backend:
+    driver: bridge
+
+volumes:
+  pg_data:

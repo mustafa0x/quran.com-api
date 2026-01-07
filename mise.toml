@@ -1,0 +1,38 @@
+[tools]
+ruby = "3.1.0"
+
+[tasks.bundle]
+run = "bundle install"
+
+[tasks.db-prepare]
+run = "bin/rails db:prepare"
+
+[tasks.setup]
+depends = ["bundle"]
+run = "bin/setup"
+
+[tasks.server]
+depends = ["setup"]
+run = "bin/rails s -p 3000"
+
+[tasks.console]
+run = "bin/rails c"
+
+[tasks.test]
+run = "bundle exec rspec"
+
+[tasks.ruby-install]
+run = '''
+if ! brew --prefix openssl@1.1 >/dev/null 2>&1; then
+  echo "openssl@1.1 not installed. Run: brew install openssl@1.1" >&2
+  exit 1
+fi
+export RUBY_CONFIGURE_OPTS="--with-openssl-dir=$(brew --prefix openssl@1.1)"
+mise install ruby@3.1.0
+'''
+
+[env]
+POSTGRES_PORT = 5488
+POSTGRES_DB = 'quran_db'
+POSTGRES_USER = 'quran_dev'
+POSTGRES_PASSWORD = 'quran_password'
