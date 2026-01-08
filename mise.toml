@@ -36,3 +36,6 @@ POSTGRES_PORT = 5488
 POSTGRES_DB = 'quran_db'
 POSTGRES_USER = 'quran_dev'
 POSTGRES_PASSWORD = 'quran_password'
+RAILS_ALLOWED_HOSTS = "localhost,127.0.0.1"
+DATABASE_URL='postgres://quran_dev:quran_password@127.0.0.1:5488/quran_db'
+RAILS_ENV='test'

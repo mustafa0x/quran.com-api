@@ -281,7 +281,7 @@ ActiveRecord::Schema[7.0].define(version: 2025_12_31_063033) do
     t.datetime "updated_at", null: false
     t.index ["chapter_id", "language_id", "metadata_type", "is_active"], name: "index_chapter_metadata_on_query_pattern"
     t.index ["resource_content_id"], name: "index_chapter_metadata_on_resource_content_id"
-    t.check_constraint "metadata_type::text = ANY (ARRAY['summary'::character varying, 'suggestion'::character varying]::text[])", name: "check_metadata_type"
+    t.check_constraint "metadata_type::text = ANY (ARRAY['summary'::character varying::text, 'suggestion'::character varying::text])", name: "check_metadata_type"
   end
 
   create_table "chapters", id: :serial, force: :cascade do |t|

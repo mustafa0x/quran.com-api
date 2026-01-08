@@ -38,7 +38,7 @@ module QuranAPI
 
     # https://github.com/marcotc/rack-brotli/issues/4
     config.middleware.use Rack::Deflater
-    config.middleware.use Rack::Brotli
+    config.middleware.use Rack::Brotli if Rails.env.production?
 
     config.generators do |g|
       g.test_framework :rspec, fixture: true

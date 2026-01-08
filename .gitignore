@@ -38,3 +38,6 @@ public/sitemaps
 /config/credentials/development.key
 
 .env
+
+*.db
+*.sql

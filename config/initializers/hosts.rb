@@ -21,6 +21,12 @@ Rails.application.config.hosts += [
   '.prelive.quran.foundation',
 ]
 
+env_hosts = ENV.fetch("RAILS_ALLOWED_HOSTS", "")
+  .split(",")
+  .map(&:strip)
+  .reject(&:empty?)
+Rails.application.config.hosts.concat(env_hosts) if env_hosts.any?
+
 if Rails.env.development?
   Rails.application.config.hosts +=['.loca.lt', /.ngrok.io/, 'localhost']
 end
