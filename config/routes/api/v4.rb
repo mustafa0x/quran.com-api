@@ -67,6 +67,10 @@ namespace :v4 do
   # Footnote
   get 'foot_notes/:id', to: 'foot_notes#show'
 
+  # Topics
+  get 'topics', to: 'topics#index'
+  get 'topics/:id', to: 'topics#show'
+
   # available resources
   namespace :resources do
     get :translations

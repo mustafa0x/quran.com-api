@@ -5,11 +5,17 @@ module Internal
     before_action :authorize_admin_token
 
     def sync
-      payload = sync_params
-      topics_payload = payload[:topics] || []
-      delete_ids = payload[:delete_ids] || []
+      if params[:topics].present? || params[:delete_ids].present? ||
+        params[:topic].is_a?(Array) || params[:delete_id].is_a?(Array)
+        return render json: { upserted: 0, deleted: 0,
+                              errors: [{ id: nil, error: 'Batch payloads are not supported' }] },
+                      status: :unprocessable_entity
+      end
 
-      result = Internal::TopicsSync.call(topics: topics_payload, delete_ids: delete_ids)
+      topic_attrs = params[:topic].present? ? topic_params.to_h : nil
+      delete_id = params[:delete_id]
+
+      result = Internal::TopicsSync.call(topic: topic_attrs, delete_id: delete_id)
 
       status = result[:errors].any? ? :unprocessable_entity : :ok
       render json: result, status: status
@@ -26,24 +32,22 @@ module Internal
       render json: { error: 'Unauthorized' }, status: :unauthorized
     end
 
-    def sync_params
-      params.permit(
-        delete_ids: [],
-        topics: [
-          :id,
-          :name,
-          :arabic_name,
-          :description,
-          :ayah_range,
-          :wikipedia_link,
-          :ontology,
-          :thematic,
-          :depth,
-          :parent_id,
-          :ontology_parent_id,
-          :thematic_parent_id,
-          :resource_content_id
-        ]
+    def topic_params
+      params.require(:topic).permit(
+        :id,
+        :slug,
+        :name,
+        :arabic_name,
+        :description,
+        :ayah_range,
+        :wikipedia_link,
+        :ontology,
+        :thematic,
+        :depth,
+        :parent_id,
+        :ontology_parent_id,
+        :thematic_parent_id,
+        :resource_content_id
       )
     end
   end

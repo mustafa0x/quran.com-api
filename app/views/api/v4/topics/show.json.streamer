@@ -1,0 +1,21 @@
+json.object! do
+  json.topic do
+    json.object! do
+      json.extract! @topic,
+                    :id,
+                    :slug,
+                    :name,
+                    :arabic_name,
+                    :description,
+                    :ayah_range,
+                    :wikipedia_link,
+                    :ontology,
+                    :thematic,
+                    :depth,
+                    :parent_id,
+                    :ontology_parent_id,
+                    :thematic_parent_id,
+                    :resource_content_id
+    end
+  end
+end

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2025_12_31_063033) do
+ActiveRecord::Schema[7.0].define(version: 2026_01_08_130000) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -1454,6 +1454,7 @@ ActiveRecord::Schema[7.0].define(version: 2025_12_31_063033) do
 
   create_table "topics", id: :serial, force: :cascade do |t|
     t.string "name"
+    t.string "slug", null: false
     t.integer "parent_id"
     t.datetime "created_at", precision: nil, null: false
     t.datetime "updated_at", precision: nil, null: false
@@ -1474,6 +1475,7 @@ ActiveRecord::Schema[7.0].define(version: 2025_12_31_063033) do
     t.index ["ontology"], name: "index_topics_on_ontology"
     t.index ["ontology_parent_id"], name: "index_topics_on_ontology_parent_id"
     t.index ["parent_id"], name: "index_topics_on_parent_id"
+    t.index ["slug"], name: "index_topics_on_slug", unique: true
     t.index ["thematic"], name: "index_topics_on_thematic"
     t.index ["thematic_parent_id"], name: "index_topics_on_thematic_parent_id"
   end

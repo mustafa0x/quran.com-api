@@ -38,6 +38,8 @@ class Topic < ApplicationRecord
   belongs_to :parent, class_name: 'Topic'
   belongs_to :children, class_name: 'Topic', foreign_key: 'parent_id'
 
+  validates :slug, presence: true, uniqueness: true
+
   #has_many :words
   #has_many :verses, through: :words
   has_many :related_topics
