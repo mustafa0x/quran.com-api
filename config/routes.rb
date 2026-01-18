@@ -12,7 +12,7 @@ Rails.application.routes.draw do
   post '/graphql', to: 'graphql#execute'
   post "/internal/sync_api_client", to: "api_clients#sync"
   namespace :internal do
-    post 'topics/sync', to: 'topics#sync'
+    post 'pages/sync', to: 'pages#sync'
   end
 
   # Simple health check endpoint (non-cached)

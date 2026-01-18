@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2026_01_08_130000) do
+ActiveRecord::Schema[7.0].define(version: 2026_01_18_120000) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -800,6 +800,24 @@ ActiveRecord::Schema[7.0].define(version: 2026_01_08_130000) do
     t.index ["text"], name: "index_navigation_search_records_on_text"
   end
 
+  create_table "pages", force: :cascade do |t|
+    t.bigint "parent_id"
+    t.integer "ord", default: 0, null: false
+    t.boolean "hidden", default: false, null: false
+    t.string "slug", null: false
+    t.string "title", null: false
+    t.jsonb "headings", default: [], null: false
+    t.text "text"
+    t.text "description"
+    t.string "lang", default: "en", null: false
+    t.string "image"
+    t.string "thumbnail"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["lang", "slug"], name: "index_pages_on_lang_and_slug", unique: true
+    t.index ["parent_id"], name: "index_pages_on_parent_id"
+  end
+
   create_table "qiraat_juncture_segments", force: :cascade do |t|
     t.bigint "qiraat_juncture_id", null: false
     t.bigint "verse_id", null: false
@@ -1454,7 +1472,6 @@ ActiveRecord::Schema[7.0].define(version: 2026_01_08_130000) do
 
   create_table "topics", id: :serial, force: :cascade do |t|
     t.string "name"
-    t.string "slug", null: false
     t.integer "parent_id"
     t.datetime "created_at", precision: nil, null: false
     t.datetime "updated_at", precision: nil, null: false
@@ -1475,7 +1492,6 @@ ActiveRecord::Schema[7.0].define(version: 2026_01_08_130000) do
     t.index ["ontology"], name: "index_topics_on_ontology"
     t.index ["ontology_parent_id"], name: "index_topics_on_ontology_parent_id"
     t.index ["parent_id"], name: "index_topics_on_parent_id"
-    t.index ["slug"], name: "index_topics_on_slug", unique: true
     t.index ["thematic"], name: "index_topics_on_thematic"
     t.index ["thematic_parent_id"], name: "index_topics_on_thematic_parent_id"
   end
@@ -1845,6 +1861,7 @@ ActiveRecord::Schema[7.0].define(version: 2026_01_08_130000) do
   add_foreign_key "morphology_word_verb_forms", "words"
   add_foreign_key "morphology_words", "verses"
   add_foreign_key "morphology_words", "words"
+  add_foreign_key "pages", "pages", column: "parent_id"
   add_foreign_key "qiraat_juncture_segments", "qiraat_junctures"
   add_foreign_key "qiraat_juncture_segments", "verses"
   add_foreign_key "qiraat_juncture_segments", "words", column: "end_word_id"

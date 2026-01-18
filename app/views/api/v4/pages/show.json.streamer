@@ -1,0 +1,18 @@
+json.object! do
+  json.page do
+    json.object! do
+      json.id @page.id
+      json.parent @page.parent_id
+      json.ord @page.ord
+      json.hidden @page.hidden
+      json.slug @page.slug
+      json.title @page.title
+      json.headings @page.headings
+      json.text @page.text
+      json.description @page.description
+      json.lang @page.lang
+      json.image @page.image
+      json.thumbnail @page.thumbnail
+    end
+  end
+end
